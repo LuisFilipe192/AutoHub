@@ -15,20 +15,20 @@ public class SeguradoPessoa extends Segurado{
         this.renda = renda;
     }
 
-        public String getCpf(){
-            return cpf;
-        }
+    public String getCpf(){
+        return cpf;
+    }
 
-        public void setCpf(String cpf) {
-            this.cpf = cpf;
-        }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-        public double getRenda() {
-            return renda;
-        }
+    public double getRenda() {
+        return renda;
+    }
 
-        public void setRenda(double renda) {
-            this.renda = renda;
+    public void setRenda(double renda) {
+        this.renda = renda;
 
     }
 
