@@ -30,6 +30,7 @@ public class SeguradoPessoaDAO extends DAOGenerico {
         cadastro.alterar(segurado, segurado.getCpf());
         return true;
     }
+
     public boolean excluir(String cpf){
         if(buscar(cpf)==null){
             return false;
