@@ -1,11 +1,13 @@
 package br.edu.cs.poo.ac.seguro.entidades;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Veiculo {
+public class Veiculo implements Serializable{
     private String placa;
     private int ano;
     private SeguradoEmpresa proprietarioEmpresa;
