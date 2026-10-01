@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Segurado {
+import java.io.Serializable;
+
+public class Segurado implements Serializable{
     private String nome;
     private Endereco endereco;
     private LocalDate dataCriacao;
