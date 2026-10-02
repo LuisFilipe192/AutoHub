@@ -27,3 +27,10 @@ replay_pid*
 #Projeto AutoHub
 bin/
 !lib/lombok.jar
+!lib/PersistenciaObjetos.jar
+
+#Pastas de teste
+/Sinistro/
+/Apolice/
+/Veiculo/
+/SeguradoEmpresa/

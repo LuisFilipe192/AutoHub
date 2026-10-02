@@ -10,7 +10,7 @@ public class SinistroDAO extends DAOGenerico{
     }
 
     public Sinistro buscar(String numero) {
-        return (Sinistro) cadastro.buscar(numero);
+    	return (Sinistro) cadastro.buscar(numero);
     }
 
     public boolean incluir(Sinistro sinistro) {
