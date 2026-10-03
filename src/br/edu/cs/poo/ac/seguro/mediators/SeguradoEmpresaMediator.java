@@ -31,7 +31,7 @@ public class SeguradoEmpresaMediator {
         }
 
         if (!ValidadorCpfCnpj.ehCnpjValido(cnpj)) {
-            return "CNPJ com dígito inválido";
+        	return "CNPJ com d\u00edgito inv\u00e1lido";
         }
 
         return null;
@@ -53,7 +53,7 @@ public class SeguradoEmpresaMediator {
         }
 
         if (!seguradoEmpresaDAO.incluir(seg)) {
-            return "CNPJ do segurado empresa já existente";
+        	return "CNPJ do segurado empresa j\u00e1 existente";
         }
 
         return null;
@@ -67,7 +67,7 @@ public class SeguradoEmpresaMediator {
         }
 
         if (!seguradoEmpresaDAO.alterar(seg)) {
-            return "CNPJ do segurado empresa não existente";
+        	return "CNPJ do segurado empresa n\u00e3o existente";
         }
 
         return null;
@@ -75,7 +75,7 @@ public class SeguradoEmpresaMediator {
 
     public String excluirSeguradoEmpresa(String cnpj) {
         if (!seguradoEmpresaDAO.excluir(cnpj)) {
-            return "CNPJ do segurado empresa não existente";
+        	return "CNPJ do segurado empresa n\u00e3o existente";
         }
 
         return null;
