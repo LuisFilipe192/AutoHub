@@ -10,12 +10,12 @@ import java.time.format.DateTimeParseException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import br.edu.cs.poo.ac.seguro.entidades.Endereco;
 import br.edu.cs.poo.ac.seguro.entidades.SeguradoPessoa;
@@ -23,12 +23,12 @@ import br.edu.cs.poo.ac.seguro.mediators.SeguradoPessoaMediator;
 
 
 public class TelaSeguradoPessoa extends JFrame {
-	private JTextField txtCpf = new JTextField();
+	private JFormattedTextField txtCpf = Campos.comMascara("###.###.###-##");
 	private JTextField txtNome = new JTextField();
-	private JTextField txtDataNascimento = new JTextField();
+	private JFormattedTextField txtDataNascimento = Campos.comMascara("##/##/####");
 	private JTextField txtRenda = new JTextField();
 	private JTextField txtLogradouro = new JTextField();
-	private JTextField txtCep = new JTextField();
+	private JFormattedTextField txtCep = Campos.comMascara("#####-###");
 	private JTextField txtNumero = new JTextField();
 	private JTextField txtComplemento = new JTextField();
 	private JTextField txtCidade = new JTextField();
@@ -93,12 +93,12 @@ public class TelaSeguradoPessoa extends JFrame {
 	}
 	
 	private void limparCampos() {
-	    txtCpf.setText("");
+	    Campos.definir(txtCpf, null);
 	    txtNome.setText("");
-	    txtDataNascimento.setText("");
+	    Campos.definir(txtDataNascimento, null);
 	    txtRenda.setText("");
 	    txtLogradouro.setText("");
-	    txtCep.setText("");
+	    Campos.definir(txtCep, null);
 	    txtNumero.setText("");
 	    txtComplemento.setText("");
 	    txtCidade.setText("");
@@ -108,28 +108,28 @@ public class TelaSeguradoPessoa extends JFrame {
 	}
 	
 	private SeguradoPessoa montarSegurado() {
-		Endereco endereco = new Endereco(txtLogradouro.getText(),txtCep.getText(), txtNumero.getText(),txtComplemento.getText(), txtPais.getText(), txtEstado.getText(),txtCidade.getText());
+		Endereco endereco = new Endereco(txtLogradouro.getText(),Campos.soDigitos(txtCep), txtNumero.getText(),txtComplemento.getText(), txtPais.getText(), txtEstado.getText(),txtCidade.getText());
 		
 		LocalDate dataNascimento = null;
-		if(!txtDataNascimento.getText().isBlank()) {
+		if(!Campos.soDigitos(txtDataNascimento).isEmpty()) {
 			dataNascimento = LocalDate.parse(txtDataNascimento.getText(),formato);
 		}
 		
 		double renda = Double.parseDouble(txtRenda.getText().replace(",", "."));
 		
-		return new SeguradoPessoa(txtNome.getText(), endereco, dataNascimento, BigDecimal.ZERO, txtCpf.getText(), renda);
+		return new SeguradoPessoa(txtNome.getText(), endereco, dataNascimento, BigDecimal.ZERO, Campos.soDigitos(txtCpf), renda);
 	}
 
 	
 	private void preencherCampos(SeguradoPessoa seg) {
-		txtCpf.setText(seg.getCpf());
+		Campos.definir(txtCpf, seg.getCpf());
 		txtNome.setText(seg.getNome());
 		txtDataNascimento.setText(seg.getDataNascimento().format(formato));
 		txtRenda.setText(String.valueOf(seg.getRenda()));
 		
 		Endereco end = seg.getEndereco();
 		txtLogradouro.setText(end.getLogradouro());
-		txtCep.setText(end.getCep());
+		Campos.definir(txtCep, end.getCep());
 		txtNumero.setText(end.getNumero());
 		txtComplemento.setText(end.getComplemento());
 		txtCidade.setText(end.getCidade());
@@ -156,7 +156,7 @@ public class TelaSeguradoPessoa extends JFrame {
 	}
 		
 	private void buscar() {
-	    SeguradoPessoa seg = mediator.buscarSeguradoPessoa(txtCpf.getText());
+	    SeguradoPessoa seg = mediator.buscarSeguradoPessoa(Campos.soDigitos(txtCpf));
 	    if (seg == null) {
 	        JOptionPane.showMessageDialog(this, "Segurado não encontrado");
 	    } else {
@@ -183,7 +183,7 @@ public class TelaSeguradoPessoa extends JFrame {
 	}
 	
 	private void excluir() {
-	    String mensagem = mediator.excluirSeguradoPessoa(txtCpf.getText());
+	    String mensagem = mediator.excluirSeguradoPessoa(Campos.soDigitos(txtCpf));
 	    if (mensagem == null) {
 	        JOptionPane.showMessageDialog(this, "Segurado excluido com sucesso");
 	        limparCampos();

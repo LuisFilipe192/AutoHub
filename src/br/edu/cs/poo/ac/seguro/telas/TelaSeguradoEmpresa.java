@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,12 +23,12 @@ import br.edu.cs.poo.ac.seguro.mediators.SeguradoEmpresaMediator;
 
 
 public class TelaSeguradoEmpresa extends JFrame {
-	private JTextField txtCnpj = new JTextField();
+	private JFormattedTextField txtCnpj = Campos.comMascara("##.###.###/####-##");
 	private JTextField txtNome = new JTextField();
-	private JTextField txtDataAbertura = new JTextField();
+	private JFormattedTextField txtDataAbertura = Campos.comMascara("##/##/####");
 	private JTextField txtFaturamento = new JTextField();
 	private JTextField txtLogradouro = new JTextField();
-	private JTextField txtCep = new JTextField();
+	private JFormattedTextField txtCep = Campos.comMascara("#####-###");
 	private JTextField txtNumero = new JTextField();
 	private JTextField txtComplemento = new JTextField();
 	private JTextField txtCidade = new JTextField();
@@ -96,12 +97,12 @@ public class TelaSeguradoEmpresa extends JFrame {
 	}
 	
 	private void limparCampos() {
-	    txtCnpj.setText("");
+	    Campos.definir(txtCnpj, null);
 	    txtNome.setText("");
-	    txtDataAbertura.setText("");
+	    Campos.definir(txtDataAbertura, null);
 	    txtFaturamento.setText("");
 	    txtLogradouro.setText("");
-	    txtCep.setText("");
+	    Campos.definir(txtCep, null);
 	    txtNumero.setText("");
 	    txtComplemento.setText("");
 	    txtCidade.setText("");
@@ -112,28 +113,28 @@ public class TelaSeguradoEmpresa extends JFrame {
 	}
 	
 	private SeguradoEmpresa montarSegurado() {
-		Endereco endereco = new Endereco(txtLogradouro.getText(),txtCep.getText(), txtNumero.getText(),txtComplemento.getText(), txtPais.getText(), txtEstado.getText(),txtCidade.getText());
+		Endereco endereco = new Endereco(txtLogradouro.getText(),Campos.soDigitos(txtCep), txtNumero.getText(),txtComplemento.getText(), txtPais.getText(), txtEstado.getText(),txtCidade.getText());
 		
 		LocalDate dataAbertura = null;
-		if(!txtDataAbertura.getText().isBlank()) {
+		if(!Campos.soDigitos(txtDataAbertura).isEmpty()) {
 			dataAbertura = LocalDate.parse(txtDataAbertura.getText(),formato);
 		}
 		
 		double faturamento = Double.parseDouble(txtFaturamento.getText().replace(",", "."));
 		
-		return new SeguradoEmpresa(txtNome.getText(), endereco, dataAbertura, BigDecimal.ZERO, txtCnpj.getText(), faturamento, chkLocadora.isSelected());
+		return new SeguradoEmpresa(txtNome.getText(), endereco, dataAbertura, BigDecimal.ZERO, Campos.soDigitos(txtCnpj), faturamento, chkLocadora.isSelected());
 	}
 
 	
 	private void preencherCampos(SeguradoEmpresa seg) {
-		txtCnpj.setText(seg.getCnpj());
+		Campos.definir(txtCnpj, seg.getCnpj());
 		txtNome.setText(seg.getNome());
 		txtDataAbertura.setText(seg.getDataAbertura().format(formato));
 		txtFaturamento.setText(String.valueOf(seg.getFaturamento()));
 		
 		Endereco end = seg.getEndereco();
 		txtLogradouro.setText(end.getLogradouro());
-		txtCep.setText(end.getCep());
+		Campos.definir(txtCep, end.getCep());
 		txtNumero.setText(end.getNumero());
 		txtComplemento.setText(end.getComplemento());
 		txtCidade.setText(end.getCidade());
@@ -161,7 +162,7 @@ public class TelaSeguradoEmpresa extends JFrame {
 	}
 		
 	private void buscar() {
-	    SeguradoEmpresa seg = mediator.buscarSeguradoEmpresa(txtCnpj.getText());
+	    SeguradoEmpresa seg = mediator.buscarSeguradoEmpresa(Campos.soDigitos(txtCnpj));
 	    if (seg == null) {
 	        JOptionPane.showMessageDialog(this, "Segurado não encontrado");
 	    } else {
@@ -188,7 +189,7 @@ public class TelaSeguradoEmpresa extends JFrame {
 	}
 	
 	private void excluir() {
-	    String mensagem = mediator.excluirSeguradoEmpresa(txtCnpj.getText());
+	    String mensagem = mediator.excluirSeguradoEmpresa(Campos.soDigitos(txtCnpj));
 	    if (mensagem == null) {
 	        JOptionPane.showMessageDialog(this, "Segurado excluido com sucesso");
 	        limparCampos();

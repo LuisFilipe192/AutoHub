@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,8 +26,8 @@ import br.edu.cs.poo.ac.seguro.entidades.Veiculo;
 public class TelaSinistro extends JFrame {
 	private JTextField txtNumero = new JTextField();
 	private JTextField txtPlaca = new JTextField();
-	private JTextField txtDataHoraSinistro = new JTextField();
-	private JTextField txtDataHoraRegistro = new JTextField();
+	private JFormattedTextField txtDataHoraSinistro = Campos.comMascara("##/##/#### ##:##");
+	private JFormattedTextField txtDataHoraRegistro = Campos.comMascara("##/##/#### ##:##");
 	private JTextField txtUsuario = new JTextField();
 	private JTextField txtValor = new JTextField();
 	private JComboBox<TipoSinistro> cmbTipo = new JComboBox<>(TipoSinistro.values());
@@ -84,8 +85,8 @@ public class TelaSinistro extends JFrame {
 	private void limparCampos() {
 		txtNumero.setText("");
 		txtPlaca.setText("");
-		txtDataHoraSinistro.setText("");
-		txtDataHoraRegistro.setText("");
+		Campos.definir(txtDataHoraSinistro, null);
+		Campos.definir(txtDataHoraRegistro, null);
 		txtUsuario.setText("");
 		txtValor.setText("");
 		cmbTipo.setSelectedIndex(0);
@@ -106,7 +107,7 @@ public class TelaSinistro extends JFrame {
 		LocalDateTime dataHoraSinistro = LocalDateTime.parse(txtDataHoraSinistro.getText().trim(), formato);
 
 		LocalDateTime dataHoraRegistro = LocalDateTime.now();
-		if (!txtDataHoraRegistro.getText().isBlank()) {
+		if (!Campos.soDigitos(txtDataHoraRegistro).isEmpty()) {
 			dataHoraRegistro = LocalDateTime.parse(txtDataHoraRegistro.getText().trim(), formato);
 		}
 
