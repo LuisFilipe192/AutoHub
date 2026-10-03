@@ -1,6 +1,7 @@
 package br.edu.cs.poo.ac.seguro.telas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import br.edu.cs.poo.ac.seguro.entidades.Endereco;
 import br.edu.cs.poo.ac.seguro.entidades.SeguradoPessoa;
@@ -191,6 +193,7 @@ public class TelaSeguradoPessoa extends JFrame {
 	}
 	
 	public static void main(String[] args) {
+		Temas.aplicar();
 		TelaSeguradoPessoa tela = new TelaSeguradoPessoa();
 		tela.setVisible(true);
 	}

@@ -198,6 +198,7 @@ public class TelaSeguradoEmpresa extends JFrame {
 	}
 	
 	public static void main(String[] args) {
+		Temas.aplicar();
 		TelaSeguradoEmpresa tela = new TelaSeguradoEmpresa();
 		tela.setVisible(true);
 	}

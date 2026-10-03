@@ -164,6 +164,7 @@ public class TelaApolice extends JFrame {
 	}
 
 	public static void main(String[] args) {
+		Temas.aplicar();
 		TelaApolice tela = new TelaApolice();
 		tela.setVisible(true);
 	}

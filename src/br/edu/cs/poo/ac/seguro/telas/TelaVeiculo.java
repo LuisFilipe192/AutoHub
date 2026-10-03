@@ -188,6 +188,7 @@ public class TelaVeiculo extends JFrame {
 	}
 
 	public static void main(String[] args) {
+		Temas.aplicar();
 		TelaVeiculo tela = new TelaVeiculo();
 		tela.setVisible(true);
 	}

@@ -189,6 +189,7 @@ public class TelaSinistro extends JFrame {
 	}
 
 	public static void main(String[] args) {
+		Temas.aplicar();
 		TelaSinistro tela = new TelaSinistro();
 		tela.setVisible(true);
 	}
