@@ -82,4 +82,4 @@ Os objetos são gravados em pastas na raiz do projeto, uma por entidade (`Segura
 ## Autores
 
 - Matheus Costa da Rocha ([@Mth71](https://github.com/Mth71))
-- Luis Filipe Alves Silva Santos ([@LuisFilipe192](https://github.com/LuisFilipe192))# AutoHub
+- Luis Filipe Alves Silva Santos ([@LuisFilipe192](https://github.com/LuisFilipe192))
